@@ -22,6 +22,11 @@ const motorcycleSchema = new Schema({
 
     },
 
+    boughtYear: {
+        type: String,
+        required: [true, 'Bought year is required!']
+    },
+
     soldYear: {
         type: String,
         default: 'Still owned'
@@ -33,8 +38,12 @@ const motorcycleSchema = new Schema({
         required: true
     },
 
-    picture: {
+    image: {
         type: String,
+    },
+    imagePublicId: {
+        type: String,
+        required: true,
     }
 
 }, { timestamps: true });

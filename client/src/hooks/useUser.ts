@@ -107,10 +107,12 @@ export const useLogin = () => {
 }
 
 export const useLogout = () => {
+    const { setUser } = useUserContext();
     const navigate = useNavigate();
     const logout = async () => {
         await axios.get(`${BASE_URL}/api/user/logout`, { withCredentials: true });
         localStorage.removeItem('user');
+        setUser(null);
         navigate('/login');
     }
     return logout
@@ -227,7 +229,6 @@ export const useChangePassword = () => {
             setLoading(false);
         }
     }
-
     return changePassword;
 }
 
@@ -244,7 +245,6 @@ export const useGetUser = () => {
         } finally {
             setLoading(false)
         }
-
     }
     return getUser
 }
