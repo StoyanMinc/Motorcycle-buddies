@@ -1,5 +1,6 @@
 export interface Motorcycle {
     _id: string;
+    manufacturer: string;
     model: string;
     description: string;
     year: string;
