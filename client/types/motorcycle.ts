@@ -11,7 +11,6 @@ export interface Motorcycle {
     imagePublicId: string;
     createdAt: string;
     updatedAt: string;
-    __v: Number;
 }
 
 export interface CreateMotorcycleType {
@@ -21,5 +20,5 @@ export interface CreateMotorcycleType {
     year: string;
     boughtYear: string;
     soldYear: string;
-    image: File | null
+    image: File | null | string
 }

@@ -16,6 +16,7 @@ import Home from './components/home/Home';
 import Settings from './components/settings/Settings';
 import Motorcycles from './components/motorcycles/Motorcycles';
 import CreateMotorcycle from './components/create-motorcycle/CreateMotorcycle';
+import UpdateMotorcycle from './components/update-motorcycle/UpdateMotorcycle';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
                         <Route path='/update-user' element={<UpdateUser />} />
                         <Route path='/motorcycles' element={<Motorcycles />} />
                         <Route path='/motorcycles/add' element={<CreateMotorcycle />} />
+                        <Route path='/motorcycles/update/:motorcycleId' element={<UpdateMotorcycle />} />
                     </Route>
 
                     <Route element={<AdminProtectedLayout />}>

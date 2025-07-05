@@ -2,8 +2,9 @@ import Motorcycle from "../models/Motorcycle.js";
 import cloudinary from "../utils/cloudinery.js";
 
 export const getAllMotorcycles = async (req, res) => {
+    const userId = req.user._id;
     try {
-        const result = await Motorcycle.find().populate('owner', 'username');
+        const result = await Motorcycle.find({ owner: userId }).populate('owner', 'username');
         res.status(200).json(result);
     } catch (error) {
         console.log('ERROR WITH SERVER CREATING MOTORCYCLE:', error);

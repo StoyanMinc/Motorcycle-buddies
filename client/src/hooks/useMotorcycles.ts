@@ -30,6 +30,28 @@ export const useGetAllMotorcycles = () => {
     return motorcycles;
 }
 
+export const useGetMotorcycle = (id: string) => {
+    const { setLoading } = useUserContext();
+    const [motorcycle, setMotorcycle] = useState<Motorcycle>();
+    useEffect(() => {
+        const getMotorcycle = async (id: string) => {
+            setLoading(true);
+            try {
+                const response = await axios.get(`${BASE_URL}/api/motorcycles/${id}`, { withCredentials: true });
+                setMotorcycle(response.data);
+            } catch (error: any) {
+                console.log('Error fetching motorcycle:', error);
+                toast.error(error.response.data.message);
+            } finally {
+                setLoading(false)
+            }
+        }
+        getMotorcycle(id);
+    }, [])
+
+    return motorcycle;
+}
+
 export const useCreateMotorycle = () => {
     const navigate = useNavigate();
     const { setLoading } = useUserContext();
@@ -37,7 +59,6 @@ export const useCreateMotorycle = () => {
         if (!motorcycleData.manufacturer || !motorcycleData.model || !motorcycleData.year || !motorcycleData.boughtYear || !motorcycleData.image) {
             return toast.error('Motorcycle data and image are required!');
         }
-        console.log(motorcycleData);
         const formData = new FormData();
         formData.append("manufacturer", motorcycleData.manufacturer);
         formData.append("model", motorcycleData.model);
@@ -60,4 +81,37 @@ export const useCreateMotorycle = () => {
         }
     }
     return createMotorcycle;
+}
+
+export const useUpdateMotorcycle = () => {
+    const navigate = useNavigate();
+    const updateMotorcycle = async (id: string, motorcycleData: CreateMotorcycleType) => {
+        console.log('MOTOR', motorcycleData);
+        if (!id || !motorcycleData) {
+            return toast.error('Motorcycle data and id are required!');
+        }
+        const formData = new FormData();
+        formData.append("manufacturer", motorcycleData.manufacturer);
+        formData.append("model", motorcycleData.model);
+        formData.append("description", motorcycleData.description);
+        formData.append("year", motorcycleData.year);
+        formData.append("boughtYear", motorcycleData.boughtYear);
+        formData.append("soldYear", motorcycleData.soldYear);
+        if (motorcycleData.image instanceof File) {
+            formData.append("image", motorcycleData.image);
+        }
+        try {
+            const response = await axios.put(`${BASE_URL}/api/motorcycles/${id}`,
+                formData,
+                { withCredentials: true });
+            toast.success('Update bike successfully!');
+            navigate('/motorcycles');
+            return response.data
+        } catch (error: any) {
+            console.log('Error fetching motorcycles:', error);
+            toast.error(error.response.data.message);
+        }
+    }
+
+    return updateMotorcycle;
 }
