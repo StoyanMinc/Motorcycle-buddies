@@ -63,6 +63,8 @@ export const createMotorcycle = async (req, res) => {
 export const updateMotorycle = async (req, res) => {
     const motorcycleData = req.body;
     const id = req.params.id;
+    const file = req.file;
+
     if (!id) {
         return res.status(400).json({ message: 'Motorcycle id is required!' });
     }
@@ -74,6 +76,28 @@ export const updateMotorycle = async (req, res) => {
         if (motorcycle.owner.toString() !== req.user.id && req.user.role !== 'admin') {
             return res.status(403).json({ message: 'Only owner or admin can update motorcycle!' });
         }
+        if (file) {
+            if (motorcycle.imagePublicId) {
+                await cloudinary.uploader.destroy(motorcycle.imagePublicId);
+            }
+
+            const streamUpload = () =>
+                new Promise((resolve, reject) => {
+                    const stream = cloudinary.uploader.upload_stream(
+                        { folder: 'motorcycles' },
+                        (err, result) => {
+                            if (result) resolve(result);
+                            else reject(err);
+                        }
+                    );
+                    stream.end(file.buffer);
+                });
+
+            const uploadResult = await streamUpload();
+            motorcycleData.image = uploadResult.secure_url;
+            motorcycleData.imagePublicId = uploadResult.public_id;
+        }
+
         const result = await Motorcycle.findByIdAndUpdate(id, motorcycleData, { new: true });
         res.status(200).json({ message: 'Successfully update motorcycle!', data: result });
     } catch (error) {

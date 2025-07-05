@@ -86,7 +86,6 @@ export const useCreateMotorycle = () => {
 export const useUpdateMotorcycle = () => {
     const navigate = useNavigate();
     const updateMotorcycle = async (id: string, motorcycleData: CreateMotorcycleType) => {
-        console.log('MOTOR', motorcycleData);
         if (!id || !motorcycleData) {
             return toast.error('Motorcycle data and id are required!');
         }

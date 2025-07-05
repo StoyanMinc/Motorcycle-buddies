@@ -15,7 +15,7 @@ const motorcycleRouter = express.Router();
 motorcycleRouter.get('/', protect, getAllMotorcycles);
 motorcycleRouter.get('/:id', protect, getOneMotorcycle);
 motorcycleRouter.post('/', protect, upload.single('image'), createMotorcycle);
-motorcycleRouter.put('/:id', protect, updateMotorycle);
+motorcycleRouter.put('/:id', protect, upload.single('image'), updateMotorycle);
 motorcycleRouter.delete('/:id', protect, deleteMotorcycle);
 
 export default motorcycleRouter;
