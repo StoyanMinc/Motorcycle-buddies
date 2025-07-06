@@ -34,7 +34,6 @@ export const createMotorcycle = async (req, res) => {
     const file = req.file;
     const id = req.user._id
     motorcycleData.owner = id;
-    console.log(motorcycleData)
     if (!motorcycleData || !file) {
         return res.status(400).json({ message: 'Motorcycle data and image are required!' });
     }
