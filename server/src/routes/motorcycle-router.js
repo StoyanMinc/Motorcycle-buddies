@@ -5,6 +5,7 @@ import {
     createMotorcycle,
     deleteMotorcycle,
     getAllMotorcycles,
+    getCurrentMotorcycles,
     getOneMotorcycle,
     updateMotorycle
 
@@ -13,6 +14,7 @@ import {
 const motorcycleRouter = express.Router();
 
 motorcycleRouter.get('/', protect, getAllMotorcycles);
+motorcycleRouter.get('/current', protect, getCurrentMotorcycles);
 motorcycleRouter.get('/:id', protect, getOneMotorcycle);
 motorcycleRouter.post('/', protect, upload.single('image'), createMotorcycle);
 motorcycleRouter.put('/:id', protect, upload.single('image'), updateMotorycle);

@@ -31,6 +31,31 @@ export const useGetAllMotorcycles = () => {
     return { motorcycles, refetch: getAllMotorcycles };
 }
 
+export const useGetCurrentMotorcycles = () => {
+
+    const [motorcycles, setMotorcycles] = useState<Motorcycle[]>([])
+    const { setLoading } = useUserContext();
+
+    const getAllMotorcycles = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${BASE_URL}/api/motorcycles/current`, { withCredentials: true });
+            setMotorcycles(response.data);
+        } catch (error: any) {
+            console.log('Error fetching motorcycles:', error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        getAllMotorcycles();
+    }, []);
+
+    return motorcycles;
+}
+
 export const useGetMotorcycle = (id: string) => {
     const { setLoading } = useUserContext();
     const [motorcycle, setMotorcycle] = useState<Motorcycle>();
@@ -60,7 +85,7 @@ export const useCreateMotorycle = () => {
         if (!motorcycleData.manufacturer || !motorcycleData.model || !motorcycleData.year || !motorcycleData.boughtYear || !motorcycleData.image) {
             return toast.error('Motorcycle data and image are required!');
         }
-   
+
         const formData = new FormData();
         formData.append("manufacturer", motorcycleData.manufacturer);
         formData.append("model", motorcycleData.model);
@@ -80,6 +105,8 @@ export const useCreateMotorycle = () => {
         } catch (error: any) {
             console.log('Error fetching motorcycles:', error);
             toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
     return createMotorcycle;
@@ -87,6 +114,7 @@ export const useCreateMotorycle = () => {
 
 export const useUpdateMotorcycle = () => {
     const navigate = useNavigate();
+    const { setLoading } = useUserContext();
     const updateMotorcycle = async (id: string, motorcycleData: CreateMotorcycleType) => {
         if (!id || !motorcycleData) {
             return toast.error('Motorcycle data and id are required!');
@@ -101,6 +129,7 @@ export const useUpdateMotorcycle = () => {
         if (motorcycleData.image instanceof File) {
             formData.append("image", motorcycleData.image);
         }
+        setLoading(true);
         try {
             const response = await axios.put(`${BASE_URL}/api/motorcycles/${id}`,
                 formData,
@@ -111,6 +140,8 @@ export const useUpdateMotorcycle = () => {
         } catch (error: any) {
             console.log('Error fetching motorcycles:', error);
             toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
     return updateMotorcycle;

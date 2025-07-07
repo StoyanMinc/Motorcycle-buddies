@@ -22,9 +22,14 @@ const maintenanceSchema = new Schema({
         required: [true, 'Cost is required!']
     },
 
-    mileage: {
+    km: {
         type: Number,
-        required: [true, 'Mileage is required!']
+        required: [true, 'Kilometers are required!']
+    },
+
+    date: {
+        type: Date,
+        required: [true, 'Date is required!']
     }
 
 }, { timestamps: true });

@@ -13,6 +13,17 @@ export const getAllMotorcycles = async (req, res) => {
     }
 }
 
+export const getCurrentMotorcycles = async (req, res) => {
+    const userId = req.user._id;
+    try {
+        const result = await Motorcycle.find({ owner: userId, soldYear: 'Still owned' }).populate('owner', 'username');
+        res.status(200).json(result);
+    } catch (error) {
+        console.log('ERROR WITH SERVER CREATING MOTORCYCLE:', error);
+        return res.status(500).json({ message: 'Internal server error!' })
+    }
+}
+
 export const getOneMotorcycle = async (req, res) => {
     const id = req.params.id;
     if (!id) {
@@ -38,7 +49,9 @@ export const createMotorcycle = async (req, res) => {
     if (!motorcycleData || !file) {
         return res.status(400).json({ message: 'Motorcycle data and image are required!' });
     }
-    motorcycleData = motorcycleData.filter((row) => row !== '');
+    motorcycleData = Object.fromEntries(
+        Object.entries(motorcycleData).filter(([_, value]) => value !== '')
+    );
     try {
         const streamUpload = () =>
             new Promise((resolve, reject) => {
