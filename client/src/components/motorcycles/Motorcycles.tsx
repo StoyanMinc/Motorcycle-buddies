@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { useGetAllMotorcycles } from "../../hooks/useMotorcycles";
+import { useDeleteMotorcycle, useGetAllMotorcycles } from "../../hooks/useMotorcycles";
 import ImageModal from "../image-modal/ImageModal";
 import { Link } from "react-router-dom";
 
 export default function Motorcycles() {
-    const motorcycles = useGetAllMotorcycles();
+    const { motorcycles, refetch } = useGetAllMotorcycles();
+    const deleteMotorycle = useDeleteMotorcycle();
     const [selectImage, setSelectedImage] = useState<string | null>(null);
-    console.log(motorcycles);
+    const deleteMotorycleHandler = async (id: string) => {
+        const response = await deleteMotorycle(id)
+        if (!response) return
+        await refetch();
+    }
     return (
         <div className="flex flex-1 flex-wrap justify-center w-full bg-gray-200">
             <div className="flex flex-1 p-4 gap-3 flex-wrap justify-center">
@@ -29,7 +34,9 @@ export default function Motorcycles() {
                             <p>Owner: <span>{motorcycle.owner.username}</span></p>
                             <div className="flex justify-around mt-2">
                                 <Link to={`/motorcycles/update/${motorcycle._id}`} className="px-2 bg-blue-500 rounded-md hover:bg-blue-600 text-white">update</Link>
-                                <button className="bg-red-500 px-2 rounded-md hover:bg-red-600 text-white">delete</button>
+                                <button
+                                    onClick={() => deleteMotorycleHandler(motorcycle._id)}
+                                    className="bg-red-500 px-2 rounded-md hover:bg-red-600 text-white">delete</button>
                             </div>
                         </div>
                     ))

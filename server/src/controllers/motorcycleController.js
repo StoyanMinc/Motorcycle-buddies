@@ -1,3 +1,4 @@
+import Maintenance from "../models/Maintenance.js";
 import Motorcycle from "../models/Motorcycle.js";
 import cloudinary from "../utils/cloudinery.js";
 
@@ -30,13 +31,14 @@ export const getOneMotorcycle = async (req, res) => {
 }
 
 export const createMotorcycle = async (req, res) => {
-    const motorcycleData = req.body;
+    let motorcycleData = req.body;
     const file = req.file;
     const id = req.user._id
     motorcycleData.owner = id;
     if (!motorcycleData || !file) {
         return res.status(400).json({ message: 'Motorcycle data and image are required!' });
     }
+    motorcycleData = motorcycleData.filter((row) => row !== '');
     try {
         const streamUpload = () =>
             new Promise((resolve, reject) => {
@@ -115,6 +117,7 @@ export const deleteMotorcycle = async (req, res) => {
         if (motorcycle.owner.toString() !== req.user.id && req.user.role !== 'admin') {
             return res.status(403).json({ message: 'Only owner or admin can delete motorcycle!' });
         }
+        await Maintenance.deleteMany({ motorcycleId: motorcycle._id });
         await cloudinary.uploader.destroy(motorcycle.imagePublicId);
         await Motorcycle.findByIdAndDelete(id);
         res.status(200).json({ message: 'Successfully delete motorcycle!' });

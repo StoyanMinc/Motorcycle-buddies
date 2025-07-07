@@ -19,7 +19,8 @@ export default function Navigation() {
                 {user ? (<div className="flex gap-3 items-center">
                     <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles/add'}>Post Bike</Link>
                     <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/trips'}>Trips</Link>
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles'}>Our motorcycles</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles'}>My motorcycles</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/maintenance'}>Мaintenance</Link>
                     <button
                         onClick={() => logout()}
                         className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white">

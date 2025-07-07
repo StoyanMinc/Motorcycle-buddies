@@ -11,23 +11,24 @@ export const useGetAllMotorcycles = () => {
     const [motorcycles, setMotorcycles] = useState<Motorcycle[]>([])
     const { setLoading } = useUserContext();
 
-    useEffect(() => {
-        const getAllMotorcycles = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get(`${BASE_URL}/api/motorcycles`, { withCredentials: true });
-                setMotorcycles(response.data);
-            } catch (error: any) {
-                console.log('Error fetching motorcycles:', error);
-                toast.error(error.response.data.message);
-            } finally {
-                setLoading(false)
-            }
+    const getAllMotorcycles = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${BASE_URL}/api/motorcycles`, { withCredentials: true });
+            setMotorcycles(response.data);
+        } catch (error: any) {
+            console.log('Error fetching motorcycles:', error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false)
         }
-        getAllMotorcycles();
-    }, [setLoading])
+    }
 
-    return motorcycles;
+    useEffect(() => {
+        getAllMotorcycles();
+    }, []);
+
+    return { motorcycles, refetch: getAllMotorcycles };
 }
 
 export const useGetMotorcycle = (id: string) => {
@@ -59,6 +60,7 @@ export const useCreateMotorycle = () => {
         if (!motorcycleData.manufacturer || !motorcycleData.model || !motorcycleData.year || !motorcycleData.boughtYear || !motorcycleData.image) {
             return toast.error('Motorcycle data and image are required!');
         }
+   
         const formData = new FormData();
         formData.append("manufacturer", motorcycleData.manufacturer);
         formData.append("model", motorcycleData.model);
@@ -111,6 +113,24 @@ export const useUpdateMotorcycle = () => {
             toast.error(error.response.data.message);
         }
     }
-
     return updateMotorcycle;
+}
+
+export const useDeleteMotorcycle = () => {
+    const { setLoading } = useUserContext();
+    const navigate = useNavigate();
+    const deleteMotorcycle = async (id: string) => {
+        setLoading(true)
+        try {
+            const response = await axios.delete(`${BASE_URL}/api/motorcycles/${id}`, { withCredentials: true });
+            navigate('/motorcycles');
+            return response
+        } catch (error: any) {
+            console.log('Error deleting motorcycles:', error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+    return deleteMotorcycle;
 }
