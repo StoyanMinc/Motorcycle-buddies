@@ -30,7 +30,13 @@ const maintenanceSchema = new Schema({
     date: {
         type: Date,
         required: [true, 'Date is required!']
-    }
+    },
+
+    owner: {
+        type: Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
 
 }, { timestamps: true });
 
