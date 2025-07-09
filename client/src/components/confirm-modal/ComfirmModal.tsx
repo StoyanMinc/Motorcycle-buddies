@@ -27,7 +27,7 @@ export default function ConfirmModal({
                     </button>
                     <button
                     onClick={action}
-                        className="bg-red-400 w-full px-4 py-2 rounded-md text-white hover:bg-blue-500 transition duration-500 ease-in-out" >
+                        className="bg-red-400 w-full px-4 py-2 rounded-md text-white hover:bg-red-500 transition duration-500 ease-in-out" >
                         {confirmButtonText}
                     </button>
                 </div>

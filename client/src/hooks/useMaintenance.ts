@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 import { useUserContext } from '../contexts/UserContext';
 import { useEffect, useState } from 'react';
-import type { CreateMaintenance, Maintenance } from '../../types/maintenance';
+import type { CreateMaintenance, Maintenance, MaintenanceDetails } from '../../types/maintenance';
 
 
 export const useGetAllMaintenance = () => {
@@ -34,12 +34,12 @@ export const useGetAllMaintenance = () => {
 export const useGetSignleMaintenance = (id: string) => {
 
     const { setLoading } = useUserContext();
-    const [maintenances, setMaintenances] = useState<Maintenance>()
+    const [maintenances, setMaintenances] = useState<MaintenanceDetails>()
 
     const getSingleMaintanence = async (id: string) => {
         setLoading(true);
         try {
-            const response = await axios.get(`${BASE_URL}/api/maintenance/${id}`, { withCredentials: true });
+            const response = await axios.get(`${BASE_URL}/api/maintenance/${id}?full=true`, { withCredentials: true });
             setMaintenances(response.data);
         } catch (error: any) {
             console.log('Error fetching motorcycles:', error);

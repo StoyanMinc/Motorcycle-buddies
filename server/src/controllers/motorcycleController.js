@@ -8,7 +8,7 @@ export const getAllMotorcycles = async (req, res) => {
         const result = await Motorcycle.find({ owner: userId }).populate('owner', 'username');
         res.status(200).json(result);
     } catch (error) {
-        console.log('ERROR WITH SERVER CREATING MOTORCYCLE:', error);
+        console.log('ERROR WITH SERVER GETTING ALL MOTORCYCLES:', error);
         return res.status(500).json({ message: 'Internal server error!' })
     }
 }
@@ -19,7 +19,7 @@ export const getCurrentMotorcycles = async (req, res) => {
         const result = await Motorcycle.find({ owner: userId, soldYear: 'Still owned' }).populate('owner', 'username');
         res.status(200).json(result);
     } catch (error) {
-        console.log('ERROR WITH SERVER CREATING MOTORCYCLE:', error);
+        console.log('ERROR WITH SERVER GETTING CURRENT MOTORCYCLES:', error);
         return res.status(500).json({ message: 'Internal server error!' })
     }
 }
@@ -36,7 +36,7 @@ export const getOneMotorcycle = async (req, res) => {
         }
         res.status(200).json(motorcycle);
     } catch (error) {
-        console.log('ERROR WITH SERVER UPDATING MOTORCYCLE:', error);
+        console.log('ERROR WITH SERVER GETTING SINGLE MOTORCYCLE:', error);
         return res.status(500).json({ message: 'Internal server error!' })
     }
 }

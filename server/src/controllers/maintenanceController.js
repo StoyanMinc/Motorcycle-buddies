@@ -4,7 +4,7 @@ export const createMaintenance = async (req, res) => {
     const maintenanceData = req.body;
     console.log(maintenanceData)
     if (!maintenanceData) {
-        return res.status(400).json({ message: 'Maintenance data and image are required!' });
+        return res.status(400).json({ message: 'Maintenance data are required!' });
     }
     const id = req.user._id
     maintenanceData.owner = id;

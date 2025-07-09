@@ -10,20 +10,20 @@ export default function Navigation() {
     return (
         <>
             {loading && <Loading />}
-            <div className="fixed flex p-2 items-center justify-between w-full bg-white h-[70px]">
+            <div className="fixed flex p-2 items-center justify-between w-full bg-white h-[70px] z-50">
                 <div>
                     <Link to={'/'}>
                         <img className="w-20 h-auto cursor-pointer" src="logo.webp" alt="logo" />
                     </Link>
                 </div>
                 {user ? (<div className="flex gap-3 items-center">
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles/add'}>Post Bike</Link>
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/trips'}>Trips</Link>
                     <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles'}>My motorcycles</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/trips'}>Trips</Link>
                     <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/maintenance'}>Мaintenance</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles/add'}>Add Bike</Link>
                     <button
                         onClick={() => logout()}
-                        className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white">
+                        className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white cursor-pointer">
                         logout
                     </button>
                 </div>)

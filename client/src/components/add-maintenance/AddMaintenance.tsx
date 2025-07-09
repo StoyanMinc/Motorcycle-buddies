@@ -100,7 +100,7 @@ export default function AddMaintenance({
                         value={formData.cost}
                         onChange={handleChange}
                     />
-                    <span className="absolute top-8 right-10">$</span>
+                    <span className="absolute top-8 right-10">лв.</span>
                 </div>
                 <div className="flex flex-col relative">
                     <label htmlFor="km">Kilometers</label>
