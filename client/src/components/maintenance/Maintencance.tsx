@@ -1,20 +1,52 @@
 import { useState } from "react";
 import AddMaintenance from "../add-maintenance/AddMaintenance"
-import { useGetAllMaintenance } from "../../hooks/useMaintenance";
+import { useDeleteMaintenance, useGetAllMaintenance } from "../../hooks/useMaintenance";
+import { BookOpenText, Pencil, Trash2 } from 'lucide-react';
+import type { EditMaintenance, Maintenance } from "../../../types/maintenance";
+import ConfirmModal from "../confirm-modal/ComfirmModal";
+import DetailsMaintenanceModal from "../details-Maintenance-modal/DetailsMaintenanceModal";
+
 
 export default function Maintenance() {
+    const { maintenances, refetch } = useGetAllMaintenance();
+    const [showConfirmModal, setShowConfrimModal] = useState(false);
     const [showAddModal, setShowAddmodal] = useState(false);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const closeModal = () => setShowAddmodal(false);
-    const { maintenances, refetch } = useGetAllMaintenance();
-    console.log(maintenances);
+    const [editData, setEditData] = useState<EditMaintenance | null>(null);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+
+    const closeModal = () => {
+        setEditData(null);
+        setShowAddmodal(false);
+        setShowConfrimModal(false);
+    };
+
+    const deleteMaintenance = useDeleteMaintenance();
+    const deleteMaintenaneHandlder = async () => {
+        if (!selectedId) return
+        await deleteMaintenance(selectedId);
+        await refetch();
+        closeModal();
+    }
+
     return (
         <div className="flex flex-1 flex-col items-center w-full bg-gray-200">
             {showAddModal &&
                 <AddMaintenance
                     closeModal={closeModal}
                     refetch={refetch}
+                    editData={editData}
                 />}
+            {showConfirmModal &&
+                <ConfirmModal
+                    closeModal={closeModal}
+                    title='Are you sure you want delete this service?'
+                    confirmButtonText="Delete"
+                    action={deleteMaintenaneHandlder}
+
+                />}
+            {showDetailsModal &&
+                <DetailsMaintenanceModal id={selectedId} />}
             <div className="w-full flex flex-col items-center justify-center p-4">
                 <div className="flex w-full justify-between">
                     <h1 className="text-3xl font-bold">Maintenance</h1>
@@ -47,7 +79,35 @@ export default function Maintenance() {
                                 <td className="text-center">{m.cost}лв.</td>
                                 <td className="text-center">{m.km}km</td>
                                 <td className="text-center">{m.date.split('T')[0]}</td>
-                                <td className="text-center">0 0 0</td>
+                                <td className="text-center flex justify-center gap-2">
+                                    <button onClick={() => {
+                                        setSelectedId(m._id);
+                                        setShowDetailsModal(true);
+                                     }}>
+                                        <BookOpenText className="w-5 h-5 text-blue-500 hover:text-blue-700" />
+                                    </button>
+                                    <button onClick={() => {
+                                        setEditData({
+                                            _id: m._id,
+                                            motorcycleId: m.motorcycleId._id,
+                                            serviceType: m.serviceType,
+                                            description: m.description,
+                                            cost: m.cost,
+                                            km: Number(m.km),
+                                            date: m.date
+                                        })
+                                        setShowAddmodal(true);
+                                    }}>
+                                        <Pencil className="w-5 h-5 text-yellow-500 hover:text-yellow-700"
+                                        />
+                                    </button>
+                                    <button onClick={() => {
+                                        setSelectedId(m._id);
+                                        setShowConfrimModal(true);
+                                    }}>
+                                        <Trash2 className="w-5 h-5 text-red-500 hover:text-red-700" />
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
