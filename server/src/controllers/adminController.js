@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 import User from "../models/User.js";
+import Motorcycle from "../models/Motorcycle.js";
+import Maintenance from "../models/Maintenance.js";
+import Trip from "../models/Trip.js";
 
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
 
-    console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ message: 'User not found!' });
     }
@@ -13,6 +15,9 @@ export const deleteUser = async (req, res) => {
         if (!existUser) {
             return res.status(404).json({ message: 'User not found!' });
         }
+        await Motorcycle.deleteMany({ owner: id });
+        await Maintenance.deleteMany({ owner: id });
+        await Trip.deleteMany({ owner: id });
         const deletedUser = await User.findByIdAndDelete(id);
         res.status(200).json({ message: `Successfully deleting user with email: ${deletedUser.email}!` });
     } catch (error) {

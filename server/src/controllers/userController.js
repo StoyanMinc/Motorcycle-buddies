@@ -25,8 +25,8 @@ export const register = async (req, res) => {
             path: '/',
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-            sameSite: true,
-            secure: true
+            sameSite: 'none',
+            secure: false
         })
         res.status(201).json({
             _id: userData._id,
@@ -70,7 +70,7 @@ export const login = async (req, res) => {
             path: '/',
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-            sameSite: true,
+            sameSite: 'none',
             secure: true
         })
         res.status(200).json({
