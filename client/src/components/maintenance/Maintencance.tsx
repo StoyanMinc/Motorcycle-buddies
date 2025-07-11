@@ -47,7 +47,8 @@ export default function Maintenance() {
     });
 
     return (
-        <div className="flex flex-1 flex-col items-center w-full bg-gray-200">
+        <div className="flex flex-1 flex-col items-center w-full bg-cover bg-center bg-no-repeat"
+         style={{ backgroundImage: `url('/homeImage.jpg')` }}>
             {showAddModal &&
                 <AddMaintenance
                     closeModal={closeModal}
@@ -82,7 +83,7 @@ export default function Maintenance() {
                         >Add new</button>
                     </div>
                 </div>
-                <table className="w-full border-1 rounded-md mt-4">
+                <table className="w-full border-1 rounded-md mt-4 bg-white/90">
                     <thead className="bg-blue-400">
                         <tr>
                             <th>N</th>
@@ -91,7 +92,7 @@ export default function Maintenance() {
                             <th>Cost</th>
                             <th>Mileage</th>
                             <th>Date</th>
-                            <th>Info</th>
+                            <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>

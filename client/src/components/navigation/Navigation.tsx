@@ -17,20 +17,20 @@ export default function Navigation() {
                     </Link>
                 </div>
                 {user ? (<div className="flex gap-3 items-center">
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles'}>My motorcycles</Link>
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/trips'}>Trips</Link>
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/maintenance'}>Мaintenance</Link>
-                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/motorcycles/add'}>Add Bike</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/motorcycles'}>My motorcycles</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/trips'}>Trips</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/maintenance'}>Мaintenance</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/motorcycles/add'}>Add Bike</Link>
+                    <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/settings'}>Settings</Link>
                     <button
                         onClick={() => logout()}
-                        className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white cursor-pointer">
-                        logout
+                        className="bg-red-200 px-2 py-1 rounded-md hover:bg-red-300 cursor-pointer font-bold">
+                        Logout
                     </button>
                 </div>)
                     : (<div className="flex gap-3">
-                        <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/settings'}>Settings</Link>
-                        <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/login'}>Login</Link>
-                        <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-600 hover:text-white" to={'/register'}>Register</Link>
+                        <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/login'}>Login</Link>
+                        <Link className="bg-white px-2 py-1 rounded-md hover:bg-gray-200 font-bold" to={'/register'}>Register</Link>
                     </div>)}
             </div>
         </>

@@ -17,7 +17,7 @@ export const useGetAllMaintenance = () => {
             const response = await axios.get(`${BASE_URL}/api/maintenance`, { withCredentials: true });
             setMaintenances(response.data);
         } catch (error: any) {
-            console.log('Error fetching motorcycles:', error);
+            console.log('Error fetching all maintenance:', error);
             toast.error(error.response.data.message);
         } finally {
             setLoading(false)
@@ -42,7 +42,7 @@ export const useGetSignleMaintenance = (id: string) => {
             const response = await axios.get(`${BASE_URL}/api/maintenance/${id}?full=true`, { withCredentials: true });
             setMaintenances(response.data);
         } catch (error: any) {
-            console.log('Error fetching motorcycles:', error);
+            console.log('Error fetching signle maintenace:', error);
             toast.error(error.response.data.message);
         } finally {
             setLoading(false)
@@ -64,7 +64,7 @@ export const useCreateMaintenance = () => {
         try {
             await axios.post(`${BASE_URL}/api/maintenance`, data, { withCredentials: true });
         } catch (error: any) {
-            console.log('Error fetching motorcycles:', error);
+            console.log('Error create maintenance:', error);
             toast.error(error.response.data.message);
         } finally {
             setLoading(false)
@@ -82,7 +82,7 @@ export const useUpdateMaintenance = () => {
         try {
             await axios.put(`${BASE_URL}/api/maintenance/${id}`, data, { withCredentials: true });
         } catch (error: any) {
-            console.log('Error fetching motorcycles:', error);
+            console.log('Error update maintenance:', error);
             toast.error(error.response.data.message);
         } finally {
             setLoading(false)

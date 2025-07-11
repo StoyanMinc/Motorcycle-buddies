@@ -22,14 +22,15 @@ export default function Motorcycles() {
         setShowConfrimModal(false);
     }
     return (
-        <div className="flex flex-1 flex-col flex-wrap justify-center w-full bg-gray-200">
+        <div className="flex flex-1 flex-col flex-wrap justify-center w-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('/homeImage.jpg')` }}>
             <div className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
                 <h1 className="text-2xl font-semibold text-gray-800">My Motorcycles Over The Years</h1>
             </div>
             {showConfirmModal &&
                 <ConfirmModal
                     closeModal={closeModal}
-                    title='Are you sure you want delete this service?'
+                    title='Are you sure you want delete this Bike?'
                     confirmButtonText="Delete"
                     action={deleteMotorcycleHandlder}
 
@@ -41,7 +42,7 @@ export default function Motorcycles() {
                     motorcycles.map((motorcycle) => (
                         <div
                             key={String(motorcycle._id)}
-                            className="border flex flex-col flex-wrap gap-1 w-[300px] h-[460px] p-2 rounded-md">
+                            className="border flex flex-col flex-wrap gap-1 w-[300px] h-[460px] p-2 rounded-md bg-white/80">
                             <img
                                 onClick={() => setSelectedImage(motorcycle.image)}
                                 src={motorcycle.image} alt="motorcycle" className="w-full h-48 object-cover rounded-md shadow-sm" />

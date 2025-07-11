@@ -34,10 +34,11 @@ export default function Register() {
     return (
         <>
             {loading && <Loading />}
-            <div className="flex flex-1 items-center justify-center w-full h-full bg-gray-200">
+            <div className="flex flex-1 flex-col items-center justify-center w-full h-full bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url('/homeImage.jpg')` }}>
                 <form
                     onSubmit={registerHandler}
-                    className="bg-white w-[30%] p-10 rounded-xl flex flex-col gap-4"
+                    className="bg-white/70 w-[30%] p-10 rounded-xl flex flex-col gap-4"
                 >
                     <h3 className="text-4xl self-center font-bold">Register</h3>
                     <div className="flex flex-col">
