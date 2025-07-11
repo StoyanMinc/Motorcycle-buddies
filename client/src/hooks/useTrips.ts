@@ -31,6 +31,32 @@ export const useGetAllTrips = () => {
     }, []);
 
     return { trips, refetch: getAllTrips };
+}
+
+export const useGetSignleTrip = (id: string) => {
+
+    const { setLoading } = useUserContext();
+    const [trip, setTrip] = useState<Trip>()
+
+    const getSingleTrip = async (id: string) => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${BASE_URL}/api/trips/${id}?full=true`, { withCredentials: true });
+            setTrip(response.data);
+        } catch (error: any) {
+            console.log('Error fetching signle maintenace:', error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false)
+        }
+    }
+    useEffect(() => {
+        getSingleTrip(id);
+    }, [id]);
+
+    return trip;
+}
+
 export const useCreateTrip = () => {
     const navigate = useNavigate();
     const { setLoading } = useUserContext();
@@ -49,6 +75,27 @@ export const useCreateTrip = () => {
         }
     }
     return createTrip;
+}
+
+export const useUpdateTrip = () => {
+    const navigate = useNavigate();
+    const { setLoading } = useUserContext();
+
+    const updateTrip = async (id: string, data: CreateTrip) => {
+        setLoading(true);
+        try {
+            const response = await axios.put(`${BASE_URL}/api/trips/${id}`, data, { withCredentials: true });
+            toast.success(response.data.message);
+            navigate('/trips');
+        } catch (error: any) {
+            console.log('Error update trip:', error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return updateTrip
 }
 
 }
