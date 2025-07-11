@@ -70,3 +70,20 @@ export const updateTrip = async (req, res) => {
     }
 }
 
+export const deleteTrip = async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).json({ message: 'Trip id is required!' });
+    }
+    try {
+        const trip = await Trip.findById(id);
+        if (trip.owner.toString() !== req.user.id && req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Only owner or admin can delete trip!' });
+        }
+        await Trip.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Successfully delete trip!' });
+    } catch (error) {
+        console.log('ERROR WITH SERVER DELETING TRIP:', error);
+        return res.status(500).json({ message: 'Internal server error!' })
+    }
+}

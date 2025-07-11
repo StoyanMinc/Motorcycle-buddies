@@ -98,4 +98,19 @@ export const useUpdateTrip = () => {
     return updateTrip
 }
 
+export const useDeleteTrip = () => {
+    const { setLoading } = useUserContext();
+    const deleteTrip = async (id: string) => {
+        setLoading(true)
+        try {
+            const response = await axios.delete(`${BASE_URL}/api/trips/${id}`, { withCredentials: true });
+            toast.success(response.data.message)
+        } catch (error: any) {
+            console.log('Error deleting trip:', error);
+            toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+    return deleteTrip;
 }

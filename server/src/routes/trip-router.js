@@ -8,5 +8,6 @@ tripRouter.post('/', protect, createTrip)
 tripRouter.get('/', protect, getAllTrips )
 tripRouter.get('/:id', protect, getSingleTrip )
 tripRouter.put('/:id', protect, updateTrip )
+tripRouter.delete('/:id', protect, deleteTrip )
 
 export default tripRouter;
