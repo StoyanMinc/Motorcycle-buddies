@@ -3,7 +3,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import { useCreateMotorycle } from "../../hooks/useMotorcycles";
 import type { CreateMotorcycleType } from "../../../types/motorcycle";
 
-export default function CreateMotorcycle() {
+export default function AddMotorcycle() {
 
     const { loading } = useUserContext();
     const [formData, setFormData] = useState<CreateMotorcycleType>({
@@ -38,12 +38,13 @@ export default function CreateMotorcycle() {
     }
 
     return (
-        <div className="flex flex-1 flex-col items-center justify-center w-full h-full bg-gray-200">
+        <div className="flex flex-1 flex-col items-center justify-center w-full h-full bg-cover bg-center bg-no-repeat"
+         style={{ backgroundImage: `url('/homeImage.jpg')` }}>
             <form
                 onSubmit={createMotorcycleHandler}
-                className="bg-white w-[30%] p-5 rounded-xl flex flex-col gap-1"
+                className="bg-white/80 w-[30%] p-5 rounded-xl flex flex-col gap-1"
             >
-                <h3 className="text-3xl self-center font-bold">Post Motorcycle</h3>
+                <h3 className="text-3xl self-center font-bold">Add Motorcycle</h3>
                 <div className="relative flex flex-col gap-1">
                     <label htmlFor="manufacturer">Manufacturer</label>
                     <input
@@ -128,7 +129,7 @@ export default function CreateMotorcycle() {
                     className="bg-blue-400 w-full px-4 py-2 mt-2 rounded-md text-white hover:bg-blue-500 transition duration-500 ease-in-out"
                     disabled={loading ? true : false}
                 >
-                    {loading ? 'Wait...' : 'Post'}
+                    {loading ? 'Wait...' : 'Add'}
                 </button>
             </form>
         </div>

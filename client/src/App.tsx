@@ -15,13 +15,17 @@ import Navigation from './components/navigation/Navigation';
 import Home from './components/home/Home';
 import Settings from './components/settings/Settings';
 import Motorcycles from './components/motorcycles/Motorcycles';
-import CreateMotorcycle from './components/create-motorcycle/CreateMotorcycle';
+import CreateMotorcycle from './components/add-motorcycle/AddMotorcycle';
 import UpdateMotorcycle from './components/update-motorcycle/UpdateMotorcycle';
 import Maintenance from './components/maintenance/Maintencance';
 import Trips from './components/trips/Trips';
+import AddTrip from './components/add-trip/AddTrip';
+import TripList from './components/trip-list/TripList';
+import EditTrip from './components/edit-trip/EditTrip';
 
+console.log(import.meta.env.MODE);
+console.log(import.meta.env.VITE_SERVER_URL);
 function App() {
-
     return (
         <div className='w-full h-full flex flex-col'>
             <Toaster />
@@ -44,6 +48,9 @@ function App() {
                         <Route path='/motorcycles/update/:motorcycleId' element={<UpdateMotorcycle />} />
                         <Route path='/maintenance' element={<Maintenance />} />
                         <Route path='/trips' element={<Trips />} />
+                        <Route path='/trips-list' element={<TripList />} />
+                        <Route path='/trips/add' element={<AddTrip />} />
+                        <Route path='/trips/edit/:id' element={<EditTrip />} />
                     </Route>
 
                     <Route element={<AdminProtectedLayout />}>

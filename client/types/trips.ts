@@ -15,6 +15,7 @@ export interface Trip {
         __v: number
     },
     tripTitle: string,
+    address: string,
     friends: [string],
     gps: string,
     date: string,
@@ -25,25 +26,13 @@ export interface Trip {
     __v: string,
 }
 
-export interface AddTripProps {
-    closeModal: () => void,
-    refetch: () => void,
-    editData?: EditTrip | null;
-}
+
 
 export interface CreateTrip {
     motorcycleId: string,
     tripTitle: string,
+    address: string,
     friends: string,
-    gps: string,
-    date: string,
-}
-
-export interface EditTrip {
-    _id: string,
-    motorcycleId: string,
-    tripTitle: string,
-    friends: string[],
     gps: string,
     date: string,
 }

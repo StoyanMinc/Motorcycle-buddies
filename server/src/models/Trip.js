@@ -7,6 +7,12 @@ const tripSchema = new Schema({
         ref: 'Motorcycle',
         required: true
     },
+
+    address: {
+        type: String,
+        required: [true, 'Address is required!']
+    },
+
     tripTitle: {
         type: String,
         required: [true, 'Trip title is required!']

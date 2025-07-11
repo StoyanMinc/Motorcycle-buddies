@@ -3,7 +3,7 @@ import Trip from "../models/Trip.js";
 export const getAllTrips = async (req, res) => {
     const userId = req.user._id;
     try {
-        const result = await Trip.find({ owner: userId }).populate('motorcycleId');
+        const result = await Trip.find({ owner: userId }).populate('motorcycleId').sort({ date: -1 });
         res.status(200).json(result);
     } catch (error) {
         console.log('ERROR WITH SERVER CREATING MOTORCYCLE:', error);

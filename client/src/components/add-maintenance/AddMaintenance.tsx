@@ -45,11 +45,12 @@ export default function AddMaintenance({
     return (
         <div
             onClick={closeModal}
-            className="absolute flex flex-1 flex-col items-center justify-center w-full h-full bg-black/80">
+            className="absolute flex flex-1 flex-col items-center justify-center w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url('/homeImage.jpg')` }}>
             <form
                 onSubmit={submitHandler}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white w-[30%] p-5 rounded-xl flex flex-col gap-4"
+                className="bg-white/80 w-[30%] p-5 rounded-xl flex flex-col gap-4"
             >
                 <h3 className="text-4xl self-center font-bold">{editData ? 'Edit service' : 'Add service'}</h3>
                 <div className="flex flex-col">
@@ -84,7 +85,7 @@ export default function AddMaintenance({
 
                 <div className="flex flex-col">
                     <label htmlFor="description">Description</label>
-                    <textarea className="border rounded-md px-2" rows={3}
+                    <textarea className=" border-1 border-gray-400 rounded-md px-2" rows={3}
                         cols={20} name="description" id="description"
                         value={formData.description}
                         onChange={handleChange}
@@ -117,7 +118,7 @@ export default function AddMaintenance({
                 <div className="flex flex-col relative">
                     <label htmlFor="date">Date</label>
                     <input
-                        className="px-4 py-1 border rounded-md"
+                        className="px-4 py-1 border-1 border-gray-400 rounded-md"
                         type="date"
                         id="date"
                         name="date"

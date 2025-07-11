@@ -51,15 +51,15 @@ export const updateMaintenance = async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
-        return res.status(400).json({ message: 'Maintenace id is required!' });
+        return res.status(400).json({ message: 'Maintenance id is required!' });
     }
     if (!maintenanceData) {
-        return res.status(400).json({ message: 'Motorcycle data is required!' });
+        return res.status(400).json({ message: 'Maintenance data is required!' });
     }
     try {
         const maintenance = await Maintenance.findById(id);
         if (maintenance.owner.toString() !== req.user.id && req.user.role !== 'admin') {
-            return res.status(403).json({ message: 'Only owner or admin can update motorcycle!' });
+            return res.status(403).json({ message: 'Only owner or admin can update trip!' });
         }
 
         const result = await Maintenance.findByIdAndUpdate(id, maintenanceData, { new: true });
