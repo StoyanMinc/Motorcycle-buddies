@@ -62,12 +62,23 @@ export const useMarkers = (mapRef: React.RefObject<google.maps.Map | null>, trip
 
             const [lat, lng] = trip.gps.split(",");
             const position = { lat: Number(lat), lng: Number(lng) };
+            let icon = {
 
-            const icon = {
-                url: "motorcycleIcon.png",
-                scaledSize: new window.google.maps.Size(50, 50),
-                anchor: new window.google.maps.Point(16, 32),
-            };
+            }
+            if (trip.motorcycleId.type === 'motorcycle') {
+                icon = {
+                    url: "motorcycleIcon.png",
+                    scaledSize: new window.google.maps.Size(50, 50),
+                    anchor: new window.google.maps.Point(16, 32),
+                };
+            } else {
+                icon = {
+                    url: "carIcon.png",
+                    scaledSize: new window.google.maps.Size(70, 70),
+                    anchor: new window.google.maps.Point(16, 32),
+                };
+            }
+
             const friends = trip.friends.join(', ');
             const date = trip.date.split('T')[0];
 

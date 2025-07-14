@@ -41,9 +41,16 @@ const motorcycleSchema = new Schema({
     image: {
         type: String,
     },
+
     imagePublicId: {
         type: String,
         required: true,
+    },
+
+    type: {
+        type: String,
+        enum: ['motorcycle', 'car'],
+        required: [true, 'Type is required!']
     }
 
 }, { timestamps: true });

@@ -13,9 +13,10 @@ export default function AddMotorcycle() {
         year: '',
         boughtYear: '',
         soldYear: '',
-        image: null
+        image: null,
+        type: 'motorcycle'
     });
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
@@ -39,12 +40,23 @@ export default function AddMotorcycle() {
 
     return (
         <div className="flex flex-1 flex-col items-center justify-center w-full h-full bg-cover bg-center bg-no-repeat"
-         style={{ backgroundImage: `url('/homeImage.jpg')` }}>
+            style={{ backgroundImage: `url('/homeImage.jpg')` }}>
             <form
                 onSubmit={createMotorcycleHandler}
                 className="bg-white/80 w-[30%] p-5 rounded-xl flex flex-col gap-1"
             >
                 <h3 className="text-3xl self-center font-bold">Add Motorcycle</h3>
+                <div className="relative flex flex-col gap-1">
+                    <label htmlFor="type">Choose Type</label>
+                    <select
+                        name="type"
+                        id="type"
+                        onChange={handleChange}
+                        className="border-1 border-gray-400 rounded-md px-4 py-2">
+                        <option value="motorcycle">Motorcycle</option>
+                        <option value="car">Car</option>
+                    </select>
+                </div>
                 <div className="relative flex flex-col gap-1">
                     <label htmlFor="manufacturer">Manufacturer</label>
                     <input

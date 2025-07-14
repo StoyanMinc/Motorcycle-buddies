@@ -12,7 +12,8 @@ export interface Trip {
         imagePublicId: string,
         createdAt: string,
         updatedAt: string,
-        __v: number
+        __v: number,
+        type: string
     },
     tripTitle: string,
     address: string,

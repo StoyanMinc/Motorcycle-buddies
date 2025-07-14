@@ -87,6 +87,7 @@ export const useCreateMotorycle = () => {
         }
 
         const formData = new FormData();
+        formData.append("type", motorcycleData.type);
         formData.append("manufacturer", motorcycleData.manufacturer);
         formData.append("model", motorcycleData.model);
         formData.append("description", motorcycleData.description);
@@ -120,6 +121,7 @@ export const useUpdateMotorcycle = () => {
             return toast.error('Motorcycle data and id are required!');
         }
         const formData = new FormData();
+        formData.append("type", motorcycleData.type);
         formData.append("manufacturer", motorcycleData.manufacturer);
         formData.append("model", motorcycleData.model);
         formData.append("description", motorcycleData.description);
